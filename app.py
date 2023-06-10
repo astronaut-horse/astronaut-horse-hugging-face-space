@@ -582,75 +582,11 @@ with gr.Blocks() as canny_blocks_interface:
 
 
 
+# ----- ControlNet with Depth Map -----------------------------------------------------------------
 
 
 
-# ----- Old ControlNet Canny Gradio Setup without Block (working) -----------------------------------------------------------------
 
-# import gradio as gr
-# from PIL import Image
-# import numpy as np
-# import cv2
-
-# from diffusers import StableDiffusionControlNetPipeline, ControlNetModel
-# from diffusers import UniPCMultistepScheduler
-# import torch
-
-# controlnet = ControlNetModel.from_pretrained("lllyasviel/sd-controlnet-canny", torch_dtype=torch.float16)
-# controlnet_pipe = StableDiffusionControlNetPipeline.from_pretrained(
-#     "runwayml/stable-diffusion-v1-5", controlnet=controlnet, torch_dtype=torch.float16
-# )
-
-# controlnet_pipe.scheduler = UniPCMultistepScheduler.from_config(controlnet_pipe.scheduler.config)
-# controlnet_pipe.enable_model_cpu_offload()
-# controlnet_pipe.enable_xformers_memory_efficient_attention()
-
-# def controlnet_edges(canny_input_prompt, input_image, input_low_threshold, input_high_threshold, input_invert):
-#     np_image = np.array(input_image)
-
-#     output_image = input_image
-#     numpy_image = np.array(output_image)
-
-#     low_threshold = 80
-#     high_threshold = 100
-#     canny_1 = cv2.Canny(numpy_image, input_low_threshold, input_high_threshold)
-#     canny_1 = canny_1[:, :, None]
-#     canny_1 = np.concatenate([canny_1, canny_1, canny_1], axis=2)
-#     if input_invert:
-#       canny_1 = 255 - canny_1
-
-#     canny_2 = Image.fromarray(canny_1)
-
-#     prompt = canny_input_prompt
-#     generator = torch.Generator(device="cpu").manual_seed(2)
-
-#     # output_image = controlnet_pipe(
-#     #     prompt,
-#     #     canny_2,
-#     #     negative_prompt="monochrome, lowres, bad anatomy, worst quality, low quality",
-#     #     generator=generator,
-#     #     num_inference_steps=20,
-#     # )
-#     output_image = controlnet_pipe(
-#         prompt,
-#         canny_2,
-#         negative_prompt="monochrome, lowres, bad anatomy, worst quality, low quality",
-#         num_inference_steps=20,
-#     )
-
-#     return output_image[0][0]
-
-
-# canny_input_prompt = gr.inputs.Textbox(label="Enter a single word or phrase")
-# canny_input_image = gr.inputs.Image()
-# canny_input_low_threshold = gr.inputs.Slider(minimum=0, maximum=1000, step=1, label="Lower Threshold:", default=100)
-# canny_input_high_threshold = gr.inputs.Slider(minimum=0, maximum=1000, step=1, label="Upper Threshold:", default=200)
-# canny_input_invert = gr.inputs.Checkbox(label="Invert Image")
-# canny_outputs = gr.outputs.Image(type="pil")
-
-# make and launch the gradio app...
-# controlnet_canny_interface = gr.Interface(fn=controlnet_edges, inputs=[canny_input_prompt, canny_input_image, canny_input_low_threshold, canny_input_high_threshold, canny_input_invert], outputs=canny_outputs, title='Canny Edge Tracing', allow_flagging='never')
-# controlnet_canny_interface.launch()
 
 
 
